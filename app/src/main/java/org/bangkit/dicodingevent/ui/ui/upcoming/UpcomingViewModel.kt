@@ -1,4 +1,4 @@
-package org.bangkit.dicodingevent.viewmodel
+package org.bangkit.dicodingevent.ui.ui.upcoming
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,22 +11,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class UpcomingViewModel : ViewModel() {
     private val _eventList = MutableLiveData<List<ListEventsItem>>()
-    val eventList: LiveData<List<ListEventsItem>> = _eventList
+    val eventlist : LiveData<List<ListEventsItem>> = _eventList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    companion object {
-        private const val TAG = "MainViewModel"
+    companion object{
+        private const val TAG = "UpcomingActivityViewModel"
     }
 
-    init {
+    init{
         getEvents()
     }
 
-    private fun getEvents() {
+    private fun getEvents(){
         _isLoading.value = true
         val client = NetworkModule.getApiService().getEvents(0)
         client.enqueue(object : Callback<DicodingEventResponse> {
