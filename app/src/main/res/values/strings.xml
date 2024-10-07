@@ -27,4 +27,6 @@
     <string name="register">Daftar</string>
     <string name="detail_information">Informasi Lainnya</string>
     <string name="quota_left">Sisa Kuota</string>
+    <string name="time">Waktu</string>
+    <string name="owner_name">Penyelenggara</string>
 </resources>

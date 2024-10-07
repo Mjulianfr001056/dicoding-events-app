@@ -1,14 +1,12 @@
 package org.bangkit.dicodingevent.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
-import org.bangkit.dicodingevent.R
 import org.bangkit.dicodingevent.data.response.DicodingEvent
 import org.bangkit.dicodingevent.databinding.ActivityDetailBinding
 
@@ -16,7 +14,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
-    val event : DicodingEvent by lazy {
+    private val event : DicodingEvent by lazy {
         getEventFromIntent()
     }
 
@@ -31,6 +29,9 @@ class DetailActivity : AppCompatActivity() {
 
         binding.tvName.text = event.name
         binding.tvSummary.text = event.summary
+        binding.tvOwnerName.text = event.ownerName
+        binding.tvBeginTime.text = event.beginTime
+
         Glide.with(this)
             .load(event.mediaCover)
             .into(binding.ivMediaCover)
@@ -44,6 +45,11 @@ class DetailActivity : AppCompatActivity() {
                 it,
                 HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+        }
+
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.link))
+            startActivity(intent)
         }
 
     }
