@@ -29,4 +29,6 @@
     <string name="quota_left">Sisa Kuota</string>
     <string name="time">Waktu</string>
     <string name="owner_name">Penyelenggara</string>
+    <string name="banner">Banner</string>
+    <string name="home">Home</string>
 </resources>

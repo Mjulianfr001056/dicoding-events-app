@@ -16,4 +16,10 @@
         android:name="org.bangkit.dicodingevent.ui.ui.finished.FinishedFragment"
         android:label="fragment_finished"
         tools:layout="@layout/fragment_finished" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="org.bangkit.dicodingevent.ui.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
