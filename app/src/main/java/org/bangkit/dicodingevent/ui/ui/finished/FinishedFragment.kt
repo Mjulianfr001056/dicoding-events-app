@@ -1,5 +1,6 @@
 package org.bangkit.dicodingevent.ui.ui.finished
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import org.bangkit.dicodingevent.R
 import org.bangkit.dicodingevent.data.response.DicodingEvent
 import org.bangkit.dicodingevent.databinding.FragmentFinishedBinding
 import org.bangkit.dicodingevent.databinding.FragmentUpcomingBinding
+import org.bangkit.dicodingevent.ui.DetailActivity
 import org.bangkit.dicodingevent.ui.DicodingEventAdapter
 
 class FinishedFragment : Fragment() {
@@ -30,7 +32,11 @@ class FinishedFragment : Fragment() {
         val binding = FragmentFinishedBinding.bind(view)
 
         binding.rvEvent.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = DicodingEventAdapter()
+        val adapter = DicodingEventAdapter { dicodingEvent ->
+            val intent = Intent(requireActivity(), DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_EVENT, dicodingEvent)
+            startActivity(intent)
+        }
         binding.rvEvent.adapter = adapter
 
         viewModel.eventlist.observe(viewLifecycleOwner) { events ->

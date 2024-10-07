@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setEventList(eventList : List<DicodingEvent>) {
-        val adapter = DicodingEventAdapter()
-        adapter.submitList(eventList)
-        binding.rvEvent.adapter = adapter
+//        val adapter = DicodingEventAdapter()
+//        adapter.submitList(eventList)
+//        binding.rvEvent.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {

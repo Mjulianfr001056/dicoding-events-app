@@ -1,6 +1,8 @@
 package org.bangkit.dicodingevent.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class DicodingEventResponse(
 
@@ -15,6 +17,8 @@ data class DicodingEventResponse(
 )
 
 typealias DicodingEvent = ListEventsItem
+
+@Parcelize
 data class ListEventsItem(
 
 	@field:SerializedName("summary")
@@ -58,4 +62,4 @@ data class ListEventsItem(
 
 	@field:SerializedName("category")
 	val category: String? = null
-)
+) : Parcelable
