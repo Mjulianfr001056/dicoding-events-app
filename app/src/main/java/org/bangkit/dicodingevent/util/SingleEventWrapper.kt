@@ -13,5 +13,5 @@ open class SingleEventWrapper<out T>(private val content: T) {
             content
         }
     }
-    fun peekContent(): T = content
+//    fun peekContent(): T = content
 }

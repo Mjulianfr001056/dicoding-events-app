@@ -3,13 +3,13 @@
     <string name="event_picture">Gambar Event</string>
     <string name="event_title">Judul event</string>
     <string name="title_activity_bottom_nav">BottomNavActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+<!--    <string name="title_home">Home</string>-->
+<!--    <string name="title_dashboard">Dashboard</string>-->
+<!--    <string name="title_notifications">Notifications</string>-->
     <string name="upcoming">Upcoming</string>
     <string name="finished">Finished</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
     <string name="event_name">DevCoach 154: ML Android | MediaPipe: Paket Lengkap dari Google untuk Terapkan ML di Android</string>
     <string name="event_summary">Acara ini sepenuhnya GRATIS dan akan diselenggarakan hari Jum\'at, 7 Juni 2024 pukul 16.00 – 17.00 WIB Live di YouTube</string>
@@ -17,13 +17,13 @@
         Deskripsi
     </string>
 
-    <string name="event_category">Seminar</string>
-    <string name="event_owner">Dicoding Event</string>
-    <string name="event_city">Online</string>
-    <string name="event_quota">2000</string>
+<!--    <string name="event_category">Seminar</string>-->
+<!--    <string name="event_owner">Dicoding Event</string>-->
+<!--    <string name="event_city">Online</string>-->
+<!--    <string name="event_quota">2000</string>-->
     <string name="event_registrants">547</string>
-    <string name="event_time">7 June 2024 16:00 – 17:00</string>
-    <string name="event_link">https://www.dicoding.com/events/8722</string>
+<!--    <string name="event_time">7 June 2024 16:00 – 17:00</string>-->
+<!--    <string name="event_link">https://www.dicoding.com/events/8722</string>-->
     <string name="register">Daftar</string>
     <string name="detail_information">Informasi Lainnya</string>
     <string name="quota_left">Sisa Kuota</string>
@@ -32,4 +32,5 @@
     <string name="banner">Banner</string>
     <string name="home">Home</string>
     <string name="search_hint">Cari event</string>
+    <string name="event_content_desc">Gambar Acara</string>
 </resources>

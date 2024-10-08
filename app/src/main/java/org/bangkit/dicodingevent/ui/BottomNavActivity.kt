@@ -1,12 +1,10 @@
 package org.bangkit.dicodingevent.ui
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.bangkit.dicodingevent.R
 import org.bangkit.dicodingevent.databinding.ActivityBottomNavBinding
 
@@ -21,8 +19,8 @@ class BottomNavActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_bottom_nav)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_bottom_nav) as NavHostFragment
+        val navController = navHostFragment.navController
 
         navView.setupWithNavController(navController)
     }

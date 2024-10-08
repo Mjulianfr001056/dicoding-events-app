@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import org.bangkit.dicodingevent.data.response.DicodingEventResponse
 import org.bangkit.dicodingevent.data.response.ListEventsItem
 import org.bangkit.dicodingevent.data.retrofit.NetworkModule
-import org.bangkit.dicodingevent.ui.ui.finished.FinishedViewModel
 import org.bangkit.dicodingevent.util.SingleEventWrapper
 import retrofit2.Call
 import retrofit2.Callback

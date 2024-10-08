@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     private val _eventList = MutableLiveData<List<ListEventsItem>>()
-    val eventList: LiveData<List<ListEventsItem>> = _eventList
+//    val eventList: LiveData<List<ListEventsItem>> = _eventList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

@@ -21,7 +21,7 @@ class DicodingEventAdapter(
         holder.bind(event, onClickItemListener)
     }
 
-    class MyViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: DicodingEvent, onItemClickListener: (DicodingEvent) -> Unit) {
             Glide.with(itemView.context)
                 .load(event.mediaCover)
