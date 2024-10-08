@@ -13,10 +13,10 @@ interface ApiService {
         @Query("active") active: Int
     ): Call<DicodingEventResponse>
 
-    @GET("events/{id}")
-    fun getDetailEvent(
-        @Path("id") id: String
-    ): Call<DetailDicodingEventResponse>
+//    @GET("events/{id}")
+//    fun getDetailEvent(
+//        @Path("id") id: String
+//    ): Call<DetailDicodingEventResponse>
 
     @GET("events")
     fun searchEvents(
