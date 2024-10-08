@@ -2,11 +2,15 @@ package org.bangkit.dicodingevent.ui.ui.upcoming
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.bangkit.dicodingevent.R
 import org.bangkit.dicodingevent.data.response.DicodingEvent
@@ -17,6 +21,10 @@ import org.bangkit.dicodingevent.ui.DicodingEventAdapter
 class UpcomingFragment : Fragment() {
 
     private val viewModel: UpcomingViewModel by viewModels()
+
+    companion object {
+        private const val TAG = "UpcomingFragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +49,51 @@ class UpcomingFragment : Fragment() {
             setEventList(events, adapter)
         }
 
+        binding.rvSearchResults.layoutManager = LinearLayoutManager(requireActivity())
+        val searchAdapter = DicodingEventAdapter { dicodingEvent ->
+            val intent = Intent(requireActivity(), DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_EVENT, dicodingEvent)
+            startActivity(intent)
+        }
+        binding.rvSearchResults.adapter = searchAdapter
+
+        viewModel.searchResults.observe(viewLifecycleOwner) { filteredEvents ->
+//            Log.d(TAG, "onViewCreated: $filteredEvents")
+            if (!filteredEvents.isNullOrEmpty()) {
+                binding.rvSearchResults.visibility = View.VISIBLE
+                binding.rvEvent.visibility = View.GONE
+                searchAdapter.submitList(filteredEvents)
+            } else {
+                binding.rvSearchResults.visibility = View.GONE
+                binding.rvEvent.visibility = View.VISIBLE
+            }
+        }
+
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { textView, _, _ ->
+                    searchBar.setText(searchView.text)
+                    searchView.hide()
+                    viewModel.searchEvent(textView.text.toString())
+                    false
+                }
+        }
+
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading, binding)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            binding.searchBar.clearText()
+
+            if (binding.rvSearchResults.visibility == View.VISIBLE) {
+                binding.rvSearchResults.visibility = View.GONE
+                binding.rvEvent.visibility = View.VISIBLE
+            } else {
+                findNavController().popBackStack()
+            }
         }
     }
 

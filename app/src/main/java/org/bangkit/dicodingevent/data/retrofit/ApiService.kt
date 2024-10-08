@@ -17,4 +17,10 @@ interface ApiService {
     fun getDetailEvent(
         @Path("id") id: String
     ): Call<DetailDicodingEventResponse>
+
+    @GET("events")
+    fun searchEvents(
+        @Query("active") active: Int,
+        @Query("q") query: String
+    ): Call<DicodingEventResponse>
 }

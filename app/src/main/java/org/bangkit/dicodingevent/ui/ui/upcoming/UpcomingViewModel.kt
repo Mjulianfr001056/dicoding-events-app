@@ -18,6 +18,9 @@ class UpcomingViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _searchResults = MutableLiveData<List<ListEventsItem>>()
+    val searchResults: LiveData<List<ListEventsItem>> = _searchResults
+
     companion object{
         private const val TAG = "UpcomingActivityViewModel"
     }
@@ -39,6 +42,36 @@ class UpcomingViewModel : ViewModel() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _eventList.value = response.body()?.listEvents
+                    }
+                }else {
+                    Log.d(TAG, "onResponse: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DicodingEventResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun searchEvent(
+        query: String
+    ){
+        _isLoading.value = true
+        val client = NetworkModule.getApiService().searchEvents(-1, query)
+
+        client.enqueue(object : Callback<DicodingEventResponse> {
+            override fun onResponse(
+                call: Call<DicodingEventResponse>,
+                response: Response<DicodingEventResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _searchResults.value = response.body()?.listEvents
+//                        Log.d(TAG, "onResponse: ${_searchResults.value}")
                     }
                 }else {
                     Log.d(TAG, "onResponse: ${response.message()}")
