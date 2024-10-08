@@ -7,10 +7,14 @@ import androidx.lifecycle.ViewModel
 import org.bangkit.dicodingevent.data.response.DicodingEventResponse
 import org.bangkit.dicodingevent.data.response.ListEventsItem
 import org.bangkit.dicodingevent.data.retrofit.NetworkModule
+import org.bangkit.dicodingevent.ui.ui.home.HomeViewModel
 import org.bangkit.dicodingevent.ui.ui.upcoming.UpcomingViewModel
+import org.bangkit.dicodingevent.util.SingleEventWrapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.net.SocketTimeoutException
 
 class FinishedViewModel : ViewModel() {
     private val _eventList = MutableLiveData<List<ListEventsItem>>()
@@ -21,6 +25,9 @@ class FinishedViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<SingleEventWrapper<String>>()
+    val errorMessage: LiveData<SingleEventWrapper<String>> = _errorMessage
 
     companion object{
         private const val TAG = "FinishedActivityViewModel"
@@ -46,12 +53,25 @@ class FinishedViewModel : ViewModel() {
                     }
                 }else {
                     Log.d(TAG, "onResponse: ${response.message()}")
+                    _errorMessage.value = SingleEventWrapper("Gagal mengambil data: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<DicodingEventResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+
+                when (t) {
+                    is SocketTimeoutException -> {
+                        _errorMessage.value = SingleEventWrapper("Request timeout. Silakan coba lagi.")
+                    }
+                    is IOException -> {
+                        _errorMessage.value = SingleEventWrapper("Tidak dapat terhubung ke server. Periksa koneksi internet Anda.")
+                    }
+                    else -> {
+                        _errorMessage.value = SingleEventWrapper("Terjadi kesalahan. ${t.message}")
+                    }
+                }
             }
         })
     }
@@ -72,16 +92,29 @@ class FinishedViewModel : ViewModel() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _searchResults.value = response.body()?.listEvents
-//                        Log.d(TAG, "onResponse: ${_searchResults.value}")
+                        _errorMessage.value = SingleEventWrapper("Data ditemukan")
                     }
                 }else {
                     Log.d(TAG, "onResponse: ${response.message()}")
+                    _errorMessage.value = SingleEventWrapper("Gagal mengambil data: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<DicodingEventResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+
+                when (t) {
+                    is SocketTimeoutException -> {
+                        _errorMessage.value = SingleEventWrapper("Request timeout. Silakan coba lagi.")
+                    }
+                    is IOException -> {
+                        _errorMessage.value = SingleEventWrapper("Tidak dapat terhubung ke server. Periksa koneksi internet Anda.")
+                    }
+                    else -> {
+                        _errorMessage.value = SingleEventWrapper("Terjadi kesalahan. ${t.message}")
+                    }
+                }
             }
         })
     }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -93,6 +94,12 @@ class UpcomingFragment : Fragment() {
                 binding.rvEvent.visibility = View.VISIBLE
             } else {
                 findNavController().popBackStack()
+            }
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }
